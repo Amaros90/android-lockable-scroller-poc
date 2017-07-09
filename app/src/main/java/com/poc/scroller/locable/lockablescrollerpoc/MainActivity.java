@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView temp = new ImageView(this);
         temp.setImageResource(getRandomFlagId());
 
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(200, 200);
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(250, 250);
         parms.gravity = Gravity.CENTER;
 
         temp.setLayoutParams(parms);
