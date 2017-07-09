@@ -4,9 +4,9 @@ import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.view.View;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,23 +19,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         _container = (LinearLayout)findViewById(R.id.Container);
-        createExampleImage(20);
+        addExampleImage(20);
     }
 
-    private void createExampleImage(int amountOfImages)
+    public void addToStart(View v)
     {
-        for (int i=0; i < amountOfImages; i++) {
+        ImageView temp = buildImage();
+        _container.addView(temp, 0);
+    }
 
-            ImageView temp = new ImageView(this);
-            temp.setImageResource(getRandomFlagId());
+    public void addToEnd(View v)
+    {
+        ImageView temp = buildImage();
+        _container.addView(temp);
+    }
 
-            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(200, 200);
-            parms.gravity = Gravity.CENTER;
+    private ImageView buildImage()
+    {
+        ImageView temp = new ImageView(this);
+        temp.setImageResource(getRandomFlagId());
 
-            temp.setLayoutParams(parms);
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(200, 200);
+        parms.gravity = Gravity.CENTER;
 
-            _container.addView(temp);
-        }
+        temp.setLayoutParams(parms);
+
+        return temp;
+    }
+
+    private void addExampleImage(int amountOfImages)
+    {
+        for (int i=0; i < amountOfImages; i++)
+            _container.addView(buildImage());
     }
 
     private int getRandomFlagId()
