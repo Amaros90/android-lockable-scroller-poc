@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="images">
+        <item>@drawable/argentina</item>
+        <item>@drawable/mexico</item>
+        <item>@drawable/china</item>
+        <item>@drawable/australia</item>
+    </array>
+</resources>
