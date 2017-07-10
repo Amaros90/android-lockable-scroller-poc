@@ -1,8 +1,11 @@
 package com.poc.scroller.locable.lockablescrollerpoc;
 
+import android.view.View;
 import android.widget.ScrollView;
 import android.content.Context;
 import android.util.AttributeSet;
+
+import java.util.EmptyStackException;
 
 public class LockedScrollView extends ScrollView {
 
