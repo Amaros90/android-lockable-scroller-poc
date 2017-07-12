@@ -4,19 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.poc.scroller.locable.lockablescrollerpoc.MainActivity">
+    tools:context="com.poc.scroller.locable.lockablescrollerpoc.ScrollViewActivity">
     <LinearLayout
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:layout_width="fill_parent">
-
-        <Button
-            android:id="@+id/Button01"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Change To RecyclerView"
-            android:onClick="changeViewComponent">
-        </Button>
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
@@ -24,19 +16,27 @@
             android:layout_width="fill_parent"
             android:layout_alignParentBottom="true">
             <Button
+                android:id="@+id/Button01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Add To Head"
+                android:onClick="addToStart">
+            </Button>
+            <Button
                 android:id="@+id/Button02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" android:text="Add To Top"
-                android:onClick="addToStart">
+                android:layout_weight="1"
+                android:text="Add to End"
+                android:onClick="addToEnd">
             </Button>
             <Button
                 android:id="@+id/Button03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add to End"
-                android:onClick="addToEnd">
+                android:text="Invert"
+                android:onClick="changeInvert">
             </Button>
         </LinearLayout>
         <com.poc.scroller.locable.lockablescrollerpoc.LockedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -56,9 +56,5 @@
 
         </com.poc.scroller.locable.lockablescrollerpoc.LockedScrollView>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/myrecyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

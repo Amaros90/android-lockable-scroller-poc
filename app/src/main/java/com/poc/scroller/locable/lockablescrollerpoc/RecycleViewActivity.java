@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class RecycleViewActivity extends AppCompatActivity {
 
     private ViewGroup _currentContainer;
 
@@ -26,11 +26,12 @@ public class MainActivity extends AppCompatActivity {
     private List<FlagResource> flagsList = new ArrayList<>();
     private FlagResourceAdapter _flagsAdapter;
     private RecyclerView _recyclerView;
+    private LinearLayoutManager _layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.recycleview);
 
         //_scrollContainer = (LinearLayout) findViewById(R.id.Container);
         _recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -38,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
         //addExampleImage(10);
 
         _flagsAdapter = new FlagResourceAdapter(flagsList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        _recyclerView.setLayoutManager(mLayoutManager);
+        _layoutManager = new LinearLayoutManager(getApplicationContext());
+        _recyclerView.setLayoutManager(_layoutManager);
         _recyclerView.setItemAnimator(new DefaultItemAnimator());
         _recyclerView.setAdapter(_flagsAdapter);
 
-        prepareFlagData(20);
+        prepareFlagData(50);
     }
 
     public void prepareFlagData(int amount)
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     {
         FlagResource flag = new FlagResource(getRandomFlagId());
         flagsList.add(0, flag);
-        _flagsAdapter.notifyDataSetChanged();
+        //_flagsAdapter.notifyDataSetChanged();
+        _flagsAdapter.notifyItemInserted(0);
 
         //ImageView temp = buildImage();
         //_currentContainer.addView(temp, 0);
@@ -77,26 +79,25 @@ public class MainActivity extends AppCompatActivity {
         //_currentContainer.addView(temp);
     }
 
+    public boolean _isInverted = false;
 
-    public void changeViewComponent(View v)
+    public void changeInvert(View v)
     {
-        /*isScrollView = !isScrollView;
+        Button invertionButton = (Button)v;
+        _isInverted = !_isInverted;
 
-        Button p1_button = (Button)findViewById(R.id.Button01);
+        if (_isInverted)
+        {
+            invertionButton.setText("Normal");
+        }
+        else
+        {
+            invertionButton.setText("Invert");
+        }
 
-        if (!isScrollView) {
-            _scrolontainer.setVisibility(View.GONE);
-            _recyclerView.setVisibility(View.VISIBLE);
-            _currentContainer = _recyclerView;
-            p1_button.setText("Change to ScrollView");
-        }
-        else {
-            _scrollContainer.setVisibility(View.VISIBLE);
-            _recyclerView.setVisibility(View.GONE);
-            _currentContainer = _scrollContainer;
-            p1_button.setText("Change to RecyclerView");
-        }
-        */
+        _layoutManager.setReverseLayout(_isInverted);
+        _layoutManager.setStackFromEnd(_isInverted);
+        _flagsAdapter.notifyDataSetChanged();
     }
 
     private ImageView buildImage()
