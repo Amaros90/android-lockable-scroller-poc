@@ -19,10 +19,6 @@ import java.util.Random;
 
 public class RecycleViewActivity extends AppCompatActivity {
 
-    private ViewGroup _currentContainer;
-
-    //private LinearLayout _scrollContainer;
-
     private List<FlagResource> flagsList = new ArrayList<>();
     private FlagResourceAdapter _flagsAdapter;
     private RecyclerView _recyclerView;
@@ -33,10 +29,7 @@ public class RecycleViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycleview);
 
-        //_scrollContainer = (LinearLayout) findViewById(R.id.Container);
         _recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        //addExampleImage(10);
 
         _flagsAdapter = new FlagResourceAdapter(flagsList);
         _layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -47,10 +40,8 @@ public class RecycleViewActivity extends AppCompatActivity {
         prepareFlagData(50);
     }
 
-    public void prepareFlagData(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
+    public void prepareFlagData(int amount) {
+        for (int i = 0; i < amount; i++) {
             FlagResource flag = new FlagResource(getRandomFlagId());
             flagsList.add(flag);
         }
@@ -62,11 +53,7 @@ public class RecycleViewActivity extends AppCompatActivity {
     {
         FlagResource flag = new FlagResource(getRandomFlagId());
         flagsList.add(0, flag);
-        //_flagsAdapter.notifyDataSetChanged();
         _flagsAdapter.notifyItemInserted(0);
-
-        //ImageView temp = buildImage();
-        //_currentContainer.addView(temp, 0);
     }
 
     public void addToEnd(View v)
@@ -74,9 +61,6 @@ public class RecycleViewActivity extends AppCompatActivity {
         FlagResource flag = new FlagResource(getRandomFlagId());
         flagsList.add(flag);
         _flagsAdapter.notifyDataSetChanged();
-
-        //ImageView temp = buildImage();
-        //_currentContainer.addView(temp);
     }
 
     public boolean _isInverted = false;
@@ -98,25 +82,6 @@ public class RecycleViewActivity extends AppCompatActivity {
         _layoutManager.setReverseLayout(_isInverted);
         _layoutManager.setStackFromEnd(_isInverted);
         _flagsAdapter.notifyDataSetChanged();
-    }
-
-    private ImageView buildImage()
-    {
-        ImageView temp = new ImageView(this);
-        temp.setImageResource(getRandomFlagId());
-
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(250, 250);
-        parms.gravity = Gravity.CENTER;
-
-        temp.setLayoutParams(parms);
-
-        return temp;
-    }
-
-    private void addExampleImage(int amountOfImages)
-    {
-        for (int i=0; i < amountOfImages; i++)
-            _currentContainer.addView(buildImage());
     }
 
     private int getRandomFlagId()

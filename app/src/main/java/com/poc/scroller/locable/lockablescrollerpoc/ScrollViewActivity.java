@@ -1,9 +1,11 @@
 package com.poc.scroller.locable.lockablescrollerpoc;
 
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,35 +13,37 @@ import android.widget.LinearLayout;
 
 import java.util.Random;
 
-/**
- * Created by daniel on 12/07/2017.
- */
-
 public class ScrollViewActivity extends AppCompatActivity {
 
-    private LinearLayout _scrollContainer;
+    private LockedLinearLayout _linearLayout;
+    private LockedScrollView _scrollView;
+    private LayoutInflater _layoutInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scrollview);
 
-        _scrollContainer = (LinearLayout) findViewById(R.id.Container);
+        _linearLayout = (LockedLinearLayout)findViewById(R.id.Container);
+        _scrollView = (LockedScrollView)findViewById(R.id.ScrollView);
+        _layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        addExampleImage(10);
+        addExampleImage(10, _linearLayout);
     }
 
 
     public void addToStart(View v)
     {
-        ImageView temp = buildImage();
-        _scrollContainer.addView(temp, 0);
+        final ImageView temp = buildImage();
+
+        _linearLayout.addView(temp, 0);
     }
 
     public void addToEnd(View v)
     {
         ImageView temp = buildImage();
-        _scrollContainer.addView(temp);
+        _linearLayout.addView(temp);
+
     }
 
     public boolean _isInverted = false;
@@ -50,14 +54,11 @@ public class ScrollViewActivity extends AppCompatActivity {
         _isInverted = !_isInverted;
 
         if (_isInverted)
-        {
             invertionButton.setText("Normal");
-        }
         else
-        {
             invertionButton.setText("Invert");
-        }
 
+        // Currently not working
         //_layoutManager.setReverseLayout(_isInverted);
         //_layoutManager.setStackFromEnd(_isInverted);
         //_flagsAdapter.notifyDataSetChanged();
@@ -76,10 +77,10 @@ public class ScrollViewActivity extends AppCompatActivity {
         return temp;
     }
 
-    private void addExampleImage(int amountOfImages)
+    private void addExampleImage(int amountOfImages, LockedLinearLayout layout)
     {
         for (int i=0; i < amountOfImages; i++)
-            _scrollContainer.addView(buildImage());
+            layout.addView(buildImage());
     }
 
     private int getRandomFlagId()

@@ -20,10 +20,4 @@ public class LockedLinearLayout extends LinearLayout {
     public LockedLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
-    @Override
-    public void addView(View child, int index)
-    {
-        super.addView(child, index);
-    }
 }

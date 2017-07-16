@@ -11,14 +11,18 @@ public class LockedScrollView extends ScrollView {
 
     public LockedScrollView(Context context) {
         super(context);
+        super.setFillViewport(true);
     }
+
 
     public LockedScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        super.setFillViewport(true);
 
     }
 
     public LockedScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        super.setFillViewport(true);
     }
 }
