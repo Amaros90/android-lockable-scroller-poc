@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class ScrollViewActivity extends AppCompatActivity {
 
-    private LockedLinearLayout _linearLayout;
+    private LinearLayout _linearLayout;
     private LockedScrollView _scrollView;
     private LayoutInflater _layoutInflater;
 
@@ -24,7 +24,7 @@ public class ScrollViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scrollview);
 
-        _linearLayout = (LockedLinearLayout)findViewById(R.id.Container);
+        _linearLayout = (LinearLayout)findViewById(R.id.Container);
         _scrollView = (LockedScrollView)findViewById(R.id.ScrollView);
         _layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -34,16 +34,18 @@ public class ScrollViewActivity extends AppCompatActivity {
 
     public void addToStart(View v)
     {
-        final ImageView temp = buildImage();
+        ImageView temp = buildImage();
 
+        _scrollView.ShouldScroll = true;
         _linearLayout.addView(temp, 0);
     }
 
     public void addToEnd(View v)
     {
         ImageView temp = buildImage();
-        _linearLayout.addView(temp);
 
+        _scrollView.ShouldScroll = false;
+        _linearLayout.addView(temp);
     }
 
     public boolean _isInverted = false;
@@ -77,7 +79,7 @@ public class ScrollViewActivity extends AppCompatActivity {
         return temp;
     }
 
-    private void addExampleImage(int amountOfImages, LockedLinearLayout layout)
+    private void addExampleImage(int amountOfImages, LinearLayout layout)
     {
         for (int i=0; i < amountOfImages; i++)
             layout.addView(buildImage());
