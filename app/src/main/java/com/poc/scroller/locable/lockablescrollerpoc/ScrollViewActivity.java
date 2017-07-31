@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,6 @@ import java.util.Random;
 public class ScrollViewActivity extends AppCompatActivity {
 
     private LinearLayout _linearLayout;
-    private LockedScrollView _scrollView;
-    private LayoutInflater _layoutInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +24,6 @@ public class ScrollViewActivity extends AppCompatActivity {
         setContentView(R.layout.scrollview);
 
         _linearLayout = (LinearLayout)findViewById(R.id.Container);
-        _scrollView = (LockedScrollView)findViewById(R.id.ScrollView);
-        _layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         addExampleImage(10, _linearLayout);
     }
@@ -35,35 +32,26 @@ public class ScrollViewActivity extends AppCompatActivity {
     public void addToStart(View v)
     {
         ImageView temp = buildImage();
-
-        _scrollView.ShouldScroll = true;
         _linearLayout.addView(temp, 0);
     }
 
     public void addToEnd(View v)
     {
         ImageView temp = buildImage();
-
-        _scrollView.ShouldScroll = false;
         _linearLayout.addView(temp);
     }
 
-    public boolean _isInverted = false;
-
-    public void changeInvert(View v)
+    public void removeRandom(View v)
     {
-        Button invertionButton = (Button)v;
-        _isInverted = !_isInverted;
+        int toRemove = getRandomItemIndexToRemove();
+        //int toRemove = 0;
+        _linearLayout.removeViewAt(toRemove);
 
-        if (_isInverted)
-            invertionButton.setText("Normal");
-        else
-            invertionButton.setText("Invert");
+        Log.i("TEST", String.format("ITEM REMOVED AT %d", toRemove));
+    }
 
-        // Currently not working
-        //_layoutManager.setReverseLayout(_isInverted);
-        //_layoutManager.setStackFromEnd(_isInverted);
-        //_flagsAdapter.notifyDataSetChanged();
+    private int getRandomItemIndexToRemove() {
+        return new Random().nextInt(_linearLayout.getChildCount());
     }
 
     private ImageView buildImage()
@@ -87,9 +75,9 @@ public class ScrollViewActivity extends AppCompatActivity {
 
     private int getRandomFlagId()
     {
-        final TypedArray imgs = getResources().obtainTypedArray(R.array.images);
-        final Random rand = new Random();
-        final int rndInt = rand.nextInt(imgs.length());
+        TypedArray imgs = getResources().obtainTypedArray(R.array.images);
+        Random rand = new Random();
+        int rndInt = rand.nextInt(imgs.length());
         return imgs.getResourceId(rndInt, 0);
     }
 }
